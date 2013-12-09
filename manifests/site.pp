@@ -85,7 +85,6 @@ node default {
   include chrome
   include redis
   include mysql
-  include fish
   include iterm2::stable
   include dropbox
   include firefox

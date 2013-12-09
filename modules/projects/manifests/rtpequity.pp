@@ -7,6 +7,7 @@ class projects::rtpequity {
 
   $app_name    = 'rtpequity'
   $php_version = '5.4.17'
+  $repo_dir    = "${boxen::config::srcdir}/sites/${app_name}"
 
   class { 'php::global':
     version => $php_version
@@ -56,5 +57,13 @@ class projects::rtpequity {
     source        => 'RockThePost/Equity',
     server_name   => 'rockthepost.local',
     php           => $php_version,
+    dir           => $repo_dir,
   }
+
+
+  file { "${boxen::config::srcdir}/sites/${app_name}/src/config/autoload/local.php":
+    path    => "${boxen::config::srcdir}/sites/${app_name}/src/config/autoload/local.php",
+    require => Repository[$repo_dir],
+    content => template('projects/local.php.erb')
+  }  
 }
