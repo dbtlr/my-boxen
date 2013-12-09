@@ -234,11 +234,6 @@ GITHUBTARBALL
     xquartz (1.1.0)
 
 GITHUBTARBALL
-  remote: boxen/puppet-zookeeper
-  specs:
-    zookeeper (1.0.2)
-
-GITHUBTARBALL
   remote: jozefizso/puppet-sublime_text_3
   specs:
     sublime_text_3 (1.0.1)
@@ -304,5 +299,4 @@ DEPENDENCIES
   vlc (= 1.0.5)
   wget (= 1.0.0)
   xquartz (= 1.1.0)
-  zookeeper (= 1.0.2)
 

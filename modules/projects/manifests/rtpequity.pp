@@ -3,7 +3,6 @@ class projects::rtpequity {
   include php::fpm::5_4_17
   include php::composer
   include nginx
-  include zookeeper
 
   $app_name    = 'rtpequity'
   $php_version = '5.4.17'
