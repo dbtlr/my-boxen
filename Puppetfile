@@ -88,4 +88,6 @@ github "pcre",        "1.0.0"
 github "libpng",      "1.0.0"
 github "zookeeper",   "1.0.2"
 
+github "sublime_text_3", "1.0.1", :repo => "jozefizso/puppet-sublime_text_3"
+
 
