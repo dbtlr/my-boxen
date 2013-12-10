@@ -3,6 +3,10 @@ class projects::rtpequity {
   include php::fpm::5_4_17
   include php::composer
   include nginx
+  include mysql
+  include memcached
+  include mongodb
+  include redis
 
   $app_name    = 'rtpequity'
   $php_version = '5.4.17'
@@ -59,10 +63,15 @@ class projects::rtpequity {
     dir           => $repo_dir,
   }
 
-
   file { "${boxen::config::srcdir}/sites/${app_name}/src/config/autoload/local.php":
     path    => "${boxen::config::srcdir}/sites/${app_name}/src/config/autoload/local.php",
     require => Repository[$repo_dir],
-    content => template('projects/local.php.erb')
-  }  
+    content => template("projects/${app_name}/local.php.erb")
+  }
+
+  file { "${php::config::configdir}/${php_version}/conf.d/${app_name}.ini":
+    path    => "${php::config::configdir}/${php_version}/conf.d/${app_name}.ini",
+    content => template("projects/php/${app_name}.ini.erb"),
+    require => Php_version[$php_version],
+  }
 }

@@ -55,7 +55,6 @@ node default {
   # core modules, needed for most things
   include dnsmasq
   include git
-  include nginx
 
   # fail if FDE is not enabled
   if $::root_encrypted == 'no' {
@@ -83,25 +82,14 @@ node default {
   }
 
   include chrome
-  include redis
-  include mysql
-  include iterm2::stable
-  include dropbox
   include firefox
-  include flux
   include gh
   include imagemagick
-  include mysql
-  include memcached
-  include mongodb
   include onepassword
-  include phpstorm
   include screen
   include sequel_pro
   include skitch
   include skype
-  include spotify
-  include vlc
   include virtualbox
   include wget
 }
