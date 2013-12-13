@@ -1,4 +1,4 @@
-class projects::rtpequity {
+class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
   include php::5_4_17
   include php::fpm::5_4_17
   include php::composer

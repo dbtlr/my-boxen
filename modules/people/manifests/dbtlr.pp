@@ -10,5 +10,7 @@ class people::dbtlr {
   include people::dbtlr::osx
   include people::dbtlr::sublime
 
-  include projects::all
+  class { 'projects::rtpequity': 
+    dev_email => 'drew+dev-test@rockthepost.com'
+  }
 }
