@@ -6,24 +6,18 @@ server {
 
   client_max_body_size 50M;
 
-  error_page 500 502 503 504 /50x.html;
   index index.php index.html;
 
   location / {
-    try_files $uri $uri/ @fastcgi;
+    try_files $uri /index.php?$query_string;
   }
 
-  location ~ .+\.php$ {
-    location ~ \..*/.*\.php$ { return 400; }
-    error_page 418 = @fastcgi;
-    return 418;
-  }
-
-  location @fastcgi {
+  location ~ \.php$ {
     include <%= scope.lookupvar "nginx::config::configdir" %>/fastcgi_params;
     keepalive_timeout 0;
     fastcgi_pass unix:<%= scope.lookupvar "boxen::config::socketdir" %>/<%= @name %>;
-    fastcgi_param SCRIPT_FILENAME <%= @repo_dir %>/src/public/index.php;
+    fastcgi_param SCRIPT_FILENAME <%= @repo_dir %>/src/public$fastcgi_script_name;
     fastcgi_param PATH_INFO $fastcgi_script_name;
+    fastcgi_index index.php;
   }
 }
