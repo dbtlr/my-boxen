@@ -49,6 +49,8 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
     node_version => 'v0.10'
   }
 
+  class { 'nodejs::global': version => 'v0.10' }
+
   nodejs::module { 'bower':
     node_version => 'v0.10'
   }
