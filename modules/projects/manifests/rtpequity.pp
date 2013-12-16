@@ -45,14 +45,28 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
     ip => '127.0.0.1',
   }
 
+  class { 'nodejs::global': version => 'v0.10' }
+  class { 'ruby::global': version => '2.0.0' }
+
+  nodejs::module { 'grunt':
+    node_version => 'v0.10'
+  }
+
   nodejs::module { 'grunt-cli':
     node_version => 'v0.10'
   }
 
-  class { 'nodejs::global': version => 'v0.10' }
-
   nodejs::module { 'bower':
     node_version => 'v0.10'
+  }
+
+  nodejs::module { 'less':
+    node_version => 'v0.10'
+  }
+
+  ruby::gem { 'compass for 2.0.0':
+    gem     => 'compass',
+    ruby    => '2.0.0'
   }
 
 	php::project { $app_name:
