@@ -1,0 +1,27 @@
+server {
+  access_log <%= scope.lookupvar "nginx::config::logdir" %>/<%= @app_name %>.access.log main;
+  listen 443;
+  root <%= @repo_dir %>/src/public;
+  server_name <%= @server_name %>;
+
+  ssl on;
+  ssl_certificate <%= scope.lookupvar "boxen::config::configdir" %>/ssl/server.crt;
+  ssl_certificate_key <%= scope.lookupvar "boxen::config::configdir" %>/ssl/server.key; 
+
+  client_max_body_size 50M;
+
+  index index.php index.html;
+
+  location / {
+    try_files $uri /index.php?$query_string;
+  }
+
+  location ~ \.php$ {
+    include <%= scope.lookupvar "nginx::config::configdir" %>/fastcgi_params;
+    keepalive_timeout 0;
+    fastcgi_pass unix:<%= scope.lookupvar "boxen::config::socketdir" %>/<%= @app_name %>;
+    fastcgi_param SCRIPT_FILENAME <%= @repo_dir %>/src/public$fastcgi_script_name;
+    fastcgi_param PATH_INFO $fastcgi_script_name;
+    fastcgi_index index.php;
+  }
+}

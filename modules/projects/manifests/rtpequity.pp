@@ -11,6 +11,7 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
   $app_name    = 'rtpequity'
   $php_version = '5.4.17'
   $repo_dir    = "${boxen::config::srcdir}/sites/${app_name}"
+  $server_name = 'rockthepost.local'
 
   class { 'php::global':
     version => $php_version
@@ -78,7 +79,7 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
     nginx         => 'projects/nginx/rtpequity.conf.erb',
     memcached     => true,
     source        => 'RockThePost/Equity',
-    server_name   => 'rockthepost.local',
+    server_name   => $server_name,
     php           => $php_version,
     dir           => $repo_dir,
   }
@@ -93,5 +94,24 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
     path    => "${php::config::configdir}/${php_version}/conf.d/${app_name}.ini",
     content => template("projects/php/${app_name}.ini.erb"),
     require => Php_version[$php_version],
+  }
+
+  file { "${boxen::config::configdir}/ssl":
+    ensure => 'directory',
+  }
+
+  file { "${boxen::config::configdir}/ssl/server.crt":
+    require => File["${boxen::config::configdir}/ssl"],
+    source  => "puppet:///modules/projects/ssl/server.crt"
+  }
+
+  file { "${boxen::config::configdir}/ssl/server.key":
+    require => File["${boxen::config::configdir}/ssl"],
+    source  => "puppet:///modules/projects/ssl/server.key"
+  }
+
+  file { "${boxen::config::configdir}/nginx/sites/${app_name}.ssl.conf":
+    path    => "${boxen::config::configdir}/nginx/sites/${app_name}.ssl.conf",
+    content => template("projects/nginx/${app_name}.ssl.conf.erb"),
   }
 }
