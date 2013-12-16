@@ -41,6 +41,10 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
     php => $php_version
   }
 
+  php::extension::oauth { "oauth for ${php_version}":
+    php => $php_version
+  }
+
   host { 'rockthepost.local':
     ip => '127.0.0.1',
   }
