@@ -13,8 +13,12 @@ server {
   }
 
   location ~ \.php$ {
+    fastcgi_connect_timeout 3600;
+    fastcgi_read_timeout 3600;
+    fastcgi_send_timeout 3600;
+    keepalive_timeout 3600;
+
     include <%= scope.lookupvar "nginx::config::configdir" %>/fastcgi_params;
-    keepalive_timeout 0;
     fastcgi_pass unix:<%= scope.lookupvar "boxen::config::socketdir" %>/<%= @name %>;
     fastcgi_param SCRIPT_FILENAME <%= @repo_dir %>/src/public$fastcgi_script_name;
     fastcgi_param PATH_INFO $fastcgi_script_name;

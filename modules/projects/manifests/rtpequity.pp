@@ -100,9 +100,9 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
     ensure => 'directory',
   }
 
-  file { "${boxen::config::configdir}/ssl/server.crt":
+  file { "${boxen::config::configdir}/ssl/$server_name.crt":
     require => File["${boxen::config::configdir}/ssl"],
-    source  => "puppet:///modules/projects/ssl/server.crt"
+    source  => "puppet:///modules/projects/ssl/$server_name.crt"
   }
 
   file { "${boxen::config::configdir}/ssl/server.key":
