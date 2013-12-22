@@ -21,6 +21,18 @@ class people::dbtlr::config {
     require => Repository["${srcdir}/config/git"]
   }
 
+  file { "${home}/.gitignore":
+    ensure  => link,
+    target  => "${srcdir}/config/git/.gitignore",
+    require => Repository["${srcdir}/config/git"]
+  }
+
+  file { "${home}/.gitmessage":
+    ensure  => link,
+    target  => "${srcdir}/config/git/.gitmessage",
+    require => Repository["${srcdir}/config/git"]
+  }
+
   # Add fish-bits.
   repository { "${srcdir}/config/fish-bits":
     source  => 'git@github.com:dbtlr/fish-bits.git',
