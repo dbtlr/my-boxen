@@ -14,4 +14,6 @@ class people::dbtlr {
   class { 'projects::rtpequity': 
     dev_email => 'drew+dev-test@rockthepost.com'
   }
+
+  include projects::dbtlr
 }
