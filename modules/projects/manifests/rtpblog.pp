@@ -15,7 +15,7 @@ class projects::rtpblog {
 
   php::project { $app_name:
     mysql         => ['blog'],
-    nginx         => true,
+    nginx         => 'projects/nginx/rtpblog.conf.erb',
     memcached     => true,
     source        => 'RockThePost/RTP-blog',
     server_name   => $server_name,
