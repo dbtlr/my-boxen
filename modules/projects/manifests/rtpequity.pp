@@ -13,10 +13,6 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
   $repo_dir    = "${boxen::config::srcdir}/sites/${app_name}"
   $server_name = 'rockthepost.local'
 
-  class { 'php::global':
-    version => $php_version
-  }
-
   php::extension::apc { "apc for ${php_version}":
     php => $php_version
   }

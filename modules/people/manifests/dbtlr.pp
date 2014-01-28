@@ -5,6 +5,12 @@ class people::dbtlr {
   include iterm2::stable
   include dropbox
   include flux
+  include php::5_4_17
+
+  class { 'php::global':
+    version => $php_version
+  }
+
 
   include people::dbtlr::config
   include people::dbtlr::osx
@@ -16,4 +22,5 @@ class people::dbtlr {
   }
 
   include projects::dbtlr
+  include projects::rtpblog
 }
