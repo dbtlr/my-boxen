@@ -16,4 +16,5 @@ class people::dbtlr {
   }
 
   include projects::dbtlr
+  include projects::logbandit
 }
