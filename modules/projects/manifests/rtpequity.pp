@@ -17,6 +17,10 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
     php => $php_version
   }
 
+  php::extension::memcached { "memcached for ${php_version}":
+    php => $php_version
+  }
+
   php::extension::mcrypt { "mcrypt for ${php_version}":
     php => $php_version
   }
