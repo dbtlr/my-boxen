@@ -4,7 +4,6 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
   include php::composer
   include nginx
   include mysql
-  include memcached
   include mongodb
   include redis
 
@@ -14,10 +13,6 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
   $server_name = 'rockthepost.local'
 
   php::extension::apc { "apc for ${php_version}":
-    php => $php_version
-  }
-
-  php::extension::memcached { "memcached for ${php_version}":
     php => $php_version
   }
 
@@ -69,6 +64,10 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
     node_version => 'v0.10'
   }
 
+  nodejs::module { 'localtunnel':
+    node_version => 'v0.10'
+  }
+
   ruby::gem { 'compass for 2.0.0':
     gem     => 'compass',
     ruby    => '2.0.0'
@@ -77,7 +76,6 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
 	php::project { $app_name:
     mysql         => ['equity'],
     nginx         => 'projects/nginx/rtpequity.conf.erb',
-    memcached     => true,
     source        => 'RockThePost/Equity',
     server_name   => $server_name,
     php           => $php_version,

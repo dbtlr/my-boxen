@@ -2,7 +2,7 @@ server {
   access_log <%= scope.lookupvar "nginx::config::logdir" %>/<%= @app_name %>.access.log main;
   listen 443;
   root <%= @repo_dir %>/src/public;
-  server_name <%= @server_name %>;
+  server_name <%= @server_name %> *.localtunnel.me;
 
   ssl on;
   ssl_certificate <%= scope.lookupvar "boxen::config::configdir" %>/ssl/<%= @server_name %>.crt;

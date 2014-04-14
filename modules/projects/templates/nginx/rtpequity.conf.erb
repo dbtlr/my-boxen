@@ -2,7 +2,7 @@ server {
   access_log <%= scope.lookupvar "nginx::config::logdir" %>/<%= @name %>.access.log main;
   listen 80;
   root <%= @repo_dir %>/src/public;
-  server_name <%= @server_name %>;
+  server_name <%= @server_name %> *.localtunnel.me;
 
   client_max_body_size 50M;
 
