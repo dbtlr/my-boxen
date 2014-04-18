@@ -22,4 +22,11 @@ class people::dbtlr {
   nodejs::module { 'express':
     node_version => 'v0.10'
   }
+  
+  include java
+  include go
+
+  go::version { '1.1.1': }
+
+  include go::1_1
 }

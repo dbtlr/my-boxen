@@ -6,7 +6,7 @@ class projects::dbtlr {
   }
 
   boxen::project { 'dbtlr':
-    ruby          => '2.0.0',
+    ruby          => '2.1.0',
     source        => 'dbtlr/dbtlr.com',
     dir           => $repo_dir,
   }

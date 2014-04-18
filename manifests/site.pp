@@ -55,6 +55,7 @@ node default {
   # core modules, needed for most things
   include dnsmasq
   include git
+  include nginx
 
   # fail if FDE is not enabled
   if $::root_encrypted == 'no' {
@@ -65,7 +66,7 @@ node default {
   include nodejs::v0_10
 
   # default ruby versions
-  include ruby::2_0_0
+  ruby::version { '2.1.0': }
 
   # common, useful packages
   package {

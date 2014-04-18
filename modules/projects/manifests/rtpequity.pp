@@ -5,6 +5,7 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
   include nginx
   include mysql
   include mongodb
+  # include memcached
   include redis
 
   $app_name    = 'rtpequity'
@@ -19,6 +20,10 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
   php::extension::mcrypt { "mcrypt for ${php_version}":
     php => $php_version
   }
+
+  # php::extension::memcached { "memcached for ${php_version}":
+  #   php => $php_version
+  # }
 
   php::extension::imagick { "imagick for ${php_version}":
     php     => $php_version,
@@ -46,7 +51,6 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
   }
 
   class { 'nodejs::global': version => 'v0.10' }
-  class { 'ruby::global': version => '2.0.0' }
 
   nodejs::module { 'grunt':
     node_version => 'v0.10'
@@ -75,6 +79,7 @@ class projects::rtpequity($dev_email = 'testing+fromdev@rockthepost.com') {
 
 	php::project { $app_name:
     mysql         => ['equity'],
+    # memcached     => true,
     nginx         => 'projects/nginx/rtpequity.conf.erb',
     source        => 'RockThePost/Equity',
     server_name   => $server_name,
